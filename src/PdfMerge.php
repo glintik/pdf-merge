@@ -85,7 +85,10 @@ class PdfMerge
                 $pageId = $this->pdf->ImportPage($i);
                 $size = $this->pdf->getTemplateSize($pageId);
 
-                $this->pdf->AddPage('P', $size);
+                $this->pdf->AddPage(
+                    $size['w'] > $size['h'] ? 'L' : 'P',
+                    [$size['w'], $size['h']]
+                );
                 $this->pdf->useTemplate($pageId);
             }
         }
